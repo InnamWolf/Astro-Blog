@@ -1,11 +1,9 @@
 ---
-import { getCollection } from "astro:content";
 import { siteConfig } from "../config/site-config";
 import Layout from "../layouts/Layout.astro";
-import TypeBlogPost from "@components/TypeBlogPost.astro";
+import BlogPost from "../components/BlogPost.astro";
 
-//Usar los blogPost que creamos
-const blogPosts = await getCollection("blog");
+const posts = await Astro.glob("./posts/*.{md,mdx}");
 ---
 
 <Layout title="Hao's Blog">
@@ -19,8 +17,8 @@ const blogPosts = await getCollection("blog");
       </h1>
 
       <div class="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2">
-        <!-- creamos propiedades que se mandan al BlogPost  -->
-        {blogPosts.map((post) => <TypeBlogPost post={post} />)}
+        <!-- creamos propiedades que se mandan al BlogPost -->
+        {posts.map((post) => <BlogPost {...post} />)}
       </div>
     </div>
   </section>
